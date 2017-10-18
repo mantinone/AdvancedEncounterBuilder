@@ -9,3 +9,20 @@ rollProbability = ( dc, bonus, isAttack=false) => {
   var total = (21 - dc + bonus)*5
   return clampPercent(  total , min, max )
 }
+
+document.addEventListener("DOMContentLoaded", function(event) {
+
+    var button = document.getElementById('calculate')
+    button.addEventListener('click', () => {
+      var dc = parseInt( document.getElementById('DC').value )
+      var bonus = parseInt( document.getElementById('Bonus').value )
+      var result = document.getElementById('result')
+      var attack = document.getElementById('Attack').checked
+
+      console.log('Attack', attack);
+
+      var chances = rollProbability( dc, bonus, attack )
+      result.innerText = `Chances are: %${chances}`
+    })
+});
+
