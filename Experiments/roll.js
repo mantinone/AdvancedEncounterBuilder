@@ -10,6 +10,8 @@ rollProbability = ( dc, bonus, isAttack=false) => {
   return clampPercent(  total , min, max )
 }
 
+var counter = 0
+
 document.addEventListener("DOMContentLoaded", function(event) {
 
     var button = document.getElementById('calculate')
@@ -20,9 +22,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
       var attack = document.getElementById('Attack').checked
 
       console.log('Attack', attack);
-
+      counter++
       var chances = rollProbability( dc, bonus, attack )
       result.innerText = `Chances are: %${chances}`
+      result.innerHtml += `<br><h1>This is header number ${counter}</h1>`
     })
 });
 
