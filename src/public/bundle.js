@@ -988,7 +988,7 @@ var MainPage = function (_React$Component) {
 }(_react2.default.Component);
 
 var mountNode = document.getElementById('app');
-_reactDom2.default.render(_react2.default.createElement(MainPage, { name: "Max" }), mountNode);
+_reactDom2.default.render(_react2.default.createElement(MainPage, { name: "Encounter Builder" }), mountNode);
 
 /***/ }),
 /* 15 */

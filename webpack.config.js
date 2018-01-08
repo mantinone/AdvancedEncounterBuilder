@@ -4,7 +4,7 @@ const path = require('path')
 const config = {
   entry: './src/home.js',
   output: {
-    path: path.resolve(__dirname, 'public'),
+    path: path.resolve(__dirname, 'src/public'),
     filename: 'bundle.js'
   },
   module: {
