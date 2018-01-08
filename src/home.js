@@ -15,4 +15,4 @@ class MainPage extends React.Component {
 }
 
 var mountNode = document.getElementById('app')
-ReactDOM.render( <MainPage name="Max" />, mountNode )
+ReactDOM.render( <MainPage name="Encounter Builder" />, mountNode )
