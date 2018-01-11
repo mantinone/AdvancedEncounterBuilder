@@ -1,5 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom"
+import CharacterList from "./components/CharacterList"
 
 class MainPage extends React.Component {
   constructor( props ){
@@ -10,7 +11,9 @@ class MainPage extends React.Component {
   }
 
   render() {
-    return <div>Hello {this.props.name}</div>
+    return (<div>Hello {this.props.name}
+      <CharacterList/>
+    </div>)
   }
 }
 
