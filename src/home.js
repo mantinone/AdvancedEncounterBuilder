@@ -11,8 +11,12 @@ class MainPage extends React.Component {
   }
 
   render() {
-    return (<div>Hello {this.props.name}
-      <CharacterList/>
+    return (<div>
+      <h1> Hello {this.props.name}</h1>
+      <div className="flex-row">
+        <CharacterList/>
+        <CharacterList/>
+      </div>
     </div>)
   }
 }

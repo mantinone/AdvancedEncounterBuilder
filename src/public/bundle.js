@@ -1028,9 +1028,18 @@ var MainPage = function (_React$Component) {
       return _react2.default.createElement(
         "div",
         null,
-        "Hello ",
-        this.props.name,
-        _react2.default.createElement(_CharacterList2.default, null)
+        _react2.default.createElement(
+          "h1",
+          null,
+          " Hello ",
+          this.props.name
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "flex-row" },
+          _react2.default.createElement(_CharacterList2.default, null),
+          _react2.default.createElement(_CharacterList2.default, null)
+        )
       );
     }
   }]);
@@ -18346,7 +18355,7 @@ var CharacterList = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         "div",
-        null,
+        { className: "character-list" },
         _react2.default.createElement(_Character2.default, { name: "Alice" }),
         _react2.default.createElement(_Character2.default, { name: "Vance" }),
         _react2.default.createElement(_Character2.default, { name: "Arias" })

@@ -8,7 +8,7 @@ class CharacterList extends React.Component {
   }
 
   render() {
-    return <div>
+    return <div className="character-list" >
       <Character name="Alice"/>
       <Character name="Vance"/>
       <Character name="Arias"/>
