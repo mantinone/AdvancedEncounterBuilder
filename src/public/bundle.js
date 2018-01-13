@@ -1017,12 +1017,41 @@ var MainPage = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (MainPage.__proto__ || Object.getPrototypeOf(MainPage)).call(this, props));
 
     _this.state = {
-      title: '...Loading'
+      characters: [],
+      monsters: []
     };
     return _this;
   }
 
   _createClass(MainPage, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var chars = this.fetchData('characters/').characterList;
+      var monst = this.fetchData('characters/monsters').characterList;
+      this.setState({
+        characters: 'boo',
+        monsters: 'doo'
+      });
+    }
+  }, {
+    key: "fetchData",
+    value: function fetchData(route) {
+      var options = {
+        method: "GET",
+        mode: 'cors',
+        headers: new Headers({
+          'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+          'Content-Type': 'application/json'
+        }),
+        credentials: 'same-origin'
+      };
+      return fetch("http://localhost:3000/" + route).then(function (data) {
+        return data.json();
+      }).then(function (result) {
+        return result;
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return _react2.default.createElement(

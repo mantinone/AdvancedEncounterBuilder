@@ -2,6 +2,8 @@ const path = require('path')
 const express = require('express')
 const app = express()
 
+const characters = require('./routes/characters.js')
+
 let testData = {
   HP: 54,
   AC: 15,
@@ -16,7 +18,7 @@ let testData = {
 //app.use( express.static('public'))
 app.use(express.static(path.join(__dirname, 'public')))
 
-
+app.use('/characters', characters )
 app.get('/', (request, response) => {
   response.sendFile(path.join(__dirname, 'public/index.html'))
 })
