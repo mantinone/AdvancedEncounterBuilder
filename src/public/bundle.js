@@ -1002,6 +1002,8 @@ var _CharacterList2 = _interopRequireDefault(_CharacterList);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -1017,8 +1019,9 @@ var MainPage = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (MainPage.__proto__ || Object.getPrototypeOf(MainPage)).call(this, props));
 
     _this.state = {
-      characters: [],
-      monsters: []
+      characters: [{ "name": "foo" }, { "name": "foo" }, { "name": "foo" }],
+      monsters: [{ "name": "boo" }, { "name": "foo" }, { "name": "foo" }],
+      passdown: '..Loading'
     };
     return _this;
   }
@@ -1026,16 +1029,15 @@ var MainPage = function (_React$Component) {
   _createClass(MainPage, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var chars = this.fetchData('characters/').characterList;
-      var monst = this.fetchData('characters/monsters').characterList;
-      this.setState({
-        characters: 'boo',
-        monsters: 'doo'
-      });
+
+      this.fetchData('characters/', 'characters');
+      this.fetchData('characters/monsters', 'monsters');
     }
   }, {
     key: "fetchData",
-    value: function fetchData(route) {
+    value: function fetchData(route, propName) {
+      var _this2 = this;
+
       var options = {
         method: "GET",
         mode: 'cors',
@@ -1048,7 +1050,8 @@ var MainPage = function (_React$Component) {
       return fetch("http://localhost:3000/" + route).then(function (data) {
         return data.json();
       }).then(function (result) {
-        return result;
+        console.log(result.characterList);
+        _this2.setState(_defineProperty({}, propName, result.characterList));
       });
     }
   }, {
@@ -1066,8 +1069,8 @@ var MainPage = function (_React$Component) {
         _react2.default.createElement(
           "div",
           { className: "flex-row" },
-          _react2.default.createElement(_CharacterList2.default, null),
-          _react2.default.createElement(_CharacterList2.default, null)
+          _react2.default.createElement(_CharacterList2.default, { characters: this.state.characters, passdown: this.state.passdown }),
+          _react2.default.createElement(_CharacterList2.default, { characters: this.state.monsters, passdown: this.state.passdown })
         )
       );
     }
@@ -18376,18 +18379,30 @@ var CharacterList = function (_React$Component) {
   function CharacterList(props) {
     _classCallCheck(this, CharacterList);
 
-    return _possibleConstructorReturn(this, (CharacterList.__proto__ || Object.getPrototypeOf(CharacterList)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (CharacterList.__proto__ || Object.getPrototypeOf(CharacterList)).call(this, props));
+
+    console.log(props);
+    return _this;
   }
 
   _createClass(CharacterList, [{
     key: "render",
     value: function render() {
+      var list = this.props.characters;
+
       return _react2.default.createElement(
         "div",
         { className: "character-list" },
-        _react2.default.createElement(_Character2.default, { name: "Alice" }),
-        _react2.default.createElement(_Character2.default, { name: "Vance" }),
-        _react2.default.createElement(_Character2.default, { name: "Arias" })
+        _react2.default.createElement(
+          "p",
+          null,
+          " Hello there ",
+          this.props.passdown,
+          " "
+        ),
+        _react2.default.createElement(_Character2.default, { name: list[0].name || "foo" }),
+        _react2.default.createElement(_Character2.default, { name: list[1].name || "boo" }),
+        _react2.default.createElement(_Character2.default, { name: list[2].name || "woo" })
       );
     }
   }]);

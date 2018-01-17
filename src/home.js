@@ -6,21 +6,19 @@ class MainPage extends React.Component {
   constructor( props ){
     super(props)
     this.state = {
-      characters: [],
-      monsters: []
+      characters: [{"name": "foo"},{"name": "foo"},{"name": "foo"}],
+      monsters: [{"name":"boo"},{"name": "foo"},{"name": "foo"}],
+      passdown: '..Loading'
     }
   }
 
   componentDidMount () {
-    let chars = this.fetchData( 'characters/').characterList
-    let monst = this.fetchData( 'characters/monsters').characterList
-    this.setState({
-      characters: 'boo',
-      monsters: 'doo'
-    })
+
+    this.fetchData( 'characters/', 'characters')
+    this.fetchData( 'characters/monsters', 'monsters')
   }
 
-  fetchData( route ){
+  fetchData( route, propName ){
     const options = {
       method: "GET",
       mode: 'cors',
@@ -32,15 +30,20 @@ class MainPage extends React.Component {
     }
     return fetch( `http://localhost:3000/${route}`)
       .then( data => data.json())
-      .then( result => result )
+      .then( result => {
+        console.log(result.characterList);
+        this.setState({
+          [propName]: result.characterList,
+        })
+      } )
   }
 
   render() {
     return (<div>
       <h1> Hello {this.props.name}</h1>
       <div className="flex-row">
-        <CharacterList/>
-        <CharacterList/>
+        <CharacterList characters={this.state.characters} passdown={this.state.passdown}/>
+        <CharacterList characters={this.state.monsters} passdown={this.state.passdown}/>
       </div>
     </div>)
   }
