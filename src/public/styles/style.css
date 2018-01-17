@@ -1,0 +1,11 @@
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.character-list {
+  background-color: #b38899;
+  padding: 0px 15px;
+  margin: 8px;
+}

@@ -1002,6 +1002,8 @@ var _CharacterList2 = _interopRequireDefault(_CharacterList);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -1017,20 +1019,58 @@ var MainPage = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (MainPage.__proto__ || Object.getPrototypeOf(MainPage)).call(this, props));
 
     _this.state = {
-      title: '...Loading'
+      characters: [],
+      monsters: []
     };
     return _this;
   }
 
   _createClass(MainPage, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+
+      this.fetchData('characters/', 'characters');
+      this.fetchData('characters/monsters', 'monsters');
+    }
+  }, {
+    key: "fetchData",
+    value: function fetchData(route, propName) {
+      var _this2 = this;
+
+      var options = {
+        method: "GET",
+        mode: 'cors',
+        headers: new Headers({
+          'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+          'Content-Type': 'application/json'
+        }),
+        credentials: 'same-origin'
+      };
+      return fetch("http://localhost:3000/" + route).then(function (data) {
+        return data.json();
+      }).then(function (result) {
+        console.log(result.characterList);
+        _this2.setState(_defineProperty({}, propName, result.characterList));
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
         "div",
         null,
-        "Hello ",
-        this.props.name,
-        _react2.default.createElement(_CharacterList2.default, null)
+        _react2.default.createElement(
+          "h1",
+          null,
+          " Hello ",
+          this.props.name
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "flex-row" },
+          _react2.default.createElement(_CharacterList2.default, { characters: this.state.characters }),
+          _react2.default.createElement(_CharacterList2.default, { characters: this.state.monsters })
+        )
       );
     }
   }]);
@@ -18338,18 +18378,35 @@ var CharacterList = function (_React$Component) {
   function CharacterList(props) {
     _classCallCheck(this, CharacterList);
 
-    return _possibleConstructorReturn(this, (CharacterList.__proto__ || Object.getPrototypeOf(CharacterList)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (CharacterList.__proto__ || Object.getPrototypeOf(CharacterList)).call(this, props));
+
+    console.log(props);
+    return _this;
   }
 
   _createClass(CharacterList, [{
+    key: "buildCharacterComponents",
+    value: function buildCharacterComponents(charactersArray) {
+      return charactersArray.map(function (character, index) {
+        return _react2.default.createElement(_Character2.default, {
+          key: index,
+          stats: character });
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var list = this.props.characters;
+
       return _react2.default.createElement(
         "div",
-        null,
-        _react2.default.createElement(_Character2.default, { name: "Alice" }),
-        _react2.default.createElement(_Character2.default, { name: "Vance" }),
-        _react2.default.createElement(_Character2.default, { name: "Arias" })
+        { className: "character-list" },
+        _react2.default.createElement(
+          "p",
+          null,
+          " Here is a list "
+        ),
+        this.buildCharacterComponents(list)
       );
     }
   }]);
@@ -18401,8 +18458,8 @@ var Character = function (_React$Component) {
       return _react2.default.createElement(
         "p",
         null,
-        " I am a character, my  names is ",
-        this.props.name,
+        " Hello, my name is: ",
+        this.props.stats.name,
         " "
       );
     }

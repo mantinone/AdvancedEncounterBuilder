@@ -5,13 +5,22 @@ import Character from "./Character"
 class CharacterList extends React.Component {
   constructor( props ) {
     super(props)
+    console.log(props);
+  }
+
+  buildCharacterComponents( charactersArray ){
+    return charactersArray.map( (character, index) =>
+      <Character
+        key={index}
+        stats={character}/>)
   }
 
   render() {
-    return <div>
-      <Character name="Alice"/>
-      <Character name="Vance"/>
-      <Character name="Arias"/>
+    const list = this.props.characters
+
+    return <div className="character-list" >
+      <p> Here is a list </p>
+      {this.buildCharacterComponents( list )}
     </div>
   }
 }

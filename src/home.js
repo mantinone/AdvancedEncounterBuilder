@@ -6,13 +6,44 @@ class MainPage extends React.Component {
   constructor( props ){
     super(props)
     this.state = {
-      title: '...Loading'
+      characters: [],
+      monsters: []
     }
   }
 
+  componentDidMount () {
+
+    this.fetchData( 'characters/', 'characters')
+    this.fetchData( 'characters/monsters', 'monsters')
+  }
+
+  fetchData( route, propName ){
+    const options = {
+      method: "GET",
+      mode: 'cors',
+      headers: new Headers({
+        'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+        'Content-Type': 'application/json',
+      }),
+      credentials: 'same-origin'
+    }
+    return fetch( `http://localhost:3000/${route}`)
+      .then( data => data.json())
+      .then( result => {
+        console.log(result.characterList);
+        this.setState({
+          [propName]: result.characterList,
+        })
+      } )
+  }
+
   render() {
-    return (<div>Hello {this.props.name}
-      <CharacterList/>
+    return (<div>
+      <h1> Hello {this.props.name}</h1>
+      <div className="flex-row">
+        <CharacterList characters={this.state.characters}/>
+        <CharacterList characters={this.state.monsters}/>
+      </div>
     </div>)
   }
 }
