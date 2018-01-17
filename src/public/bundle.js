@@ -1019,9 +1019,8 @@ var MainPage = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (MainPage.__proto__ || Object.getPrototypeOf(MainPage)).call(this, props));
 
     _this.state = {
-      characters: [{ "name": "foo" }, { "name": "foo" }, { "name": "foo" }],
-      monsters: [{ "name": "boo" }, { "name": "foo" }, { "name": "foo" }],
-      passdown: '..Loading'
+      characters: [],
+      monsters: []
     };
     return _this;
   }
@@ -1069,8 +1068,8 @@ var MainPage = function (_React$Component) {
         _react2.default.createElement(
           "div",
           { className: "flex-row" },
-          _react2.default.createElement(_CharacterList2.default, { characters: this.state.characters, passdown: this.state.passdown }),
-          _react2.default.createElement(_CharacterList2.default, { characters: this.state.monsters, passdown: this.state.passdown })
+          _react2.default.createElement(_CharacterList2.default, { characters: this.state.characters }),
+          _react2.default.createElement(_CharacterList2.default, { characters: this.state.monsters })
         )
       );
     }
@@ -18386,6 +18385,15 @@ var CharacterList = function (_React$Component) {
   }
 
   _createClass(CharacterList, [{
+    key: "buildCharacterComponents",
+    value: function buildCharacterComponents(charactersArray) {
+      return charactersArray.map(function (character, index) {
+        return _react2.default.createElement(_Character2.default, {
+          key: index,
+          stats: character });
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var list = this.props.characters;
@@ -18396,13 +18404,9 @@ var CharacterList = function (_React$Component) {
         _react2.default.createElement(
           "p",
           null,
-          " Hello there ",
-          this.props.passdown,
-          " "
+          " Here is a list "
         ),
-        _react2.default.createElement(_Character2.default, { name: list[0].name || "foo" }),
-        _react2.default.createElement(_Character2.default, { name: list[1].name || "boo" }),
-        _react2.default.createElement(_Character2.default, { name: list[2].name || "woo" })
+        this.buildCharacterComponents(list)
       );
     }
   }]);
@@ -18454,8 +18458,8 @@ var Character = function (_React$Component) {
       return _react2.default.createElement(
         "p",
         null,
-        " I am a character, my  names is ",
-        this.props.name,
+        " Hello, my name is: ",
+        this.props.stats.name,
         " "
       );
     }

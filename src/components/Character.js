@@ -7,7 +7,7 @@ class Character extends React.Component {
   }
 
   render() {
-    return <p> I am a character, my  names is {this.props.name} </p>
+    return <p> Hello, my name is: {this.props.stats.name} </p>
   }
 }
 

@@ -6,9 +6,8 @@ class MainPage extends React.Component {
   constructor( props ){
     super(props)
     this.state = {
-      characters: [{"name": "foo"},{"name": "foo"},{"name": "foo"}],
-      monsters: [{"name":"boo"},{"name": "foo"},{"name": "foo"}],
-      passdown: '..Loading'
+      characters: [],
+      monsters: []
     }
   }
 
@@ -42,8 +41,8 @@ class MainPage extends React.Component {
     return (<div>
       <h1> Hello {this.props.name}</h1>
       <div className="flex-row">
-        <CharacterList characters={this.state.characters} passdown={this.state.passdown}/>
-        <CharacterList characters={this.state.monsters} passdown={this.state.passdown}/>
+        <CharacterList characters={this.state.characters}/>
+        <CharacterList characters={this.state.monsters}/>
       </div>
     </div>)
   }

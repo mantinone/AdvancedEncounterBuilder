@@ -8,14 +8,19 @@ class CharacterList extends React.Component {
     console.log(props);
   }
 
+  buildCharacterComponents( charactersArray ){
+    return charactersArray.map( (character, index) =>
+      <Character
+        key={index}
+        stats={character}/>)
+  }
+
   render() {
     const list = this.props.characters
 
     return <div className="character-list" >
-      <p> Hello there {this.props.passdown} </p>
-      <Character name={list[0].name || "foo"}/>
-      <Character name={list[1].name || "boo"}/>
-      <Character name={list[2].name || "woo"}/>
+      <p> Here is a list </p>
+      {this.buildCharacterComponents( list )}
     </div>
   }
 }
