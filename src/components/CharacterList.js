@@ -19,7 +19,7 @@ class CharacterList extends React.Component {
     const list = this.props.characters
 
     return <div className="character-list" >
-      <p> Here is a list </p>
+      <h3> {this.props.title} </h3>
       {this.buildCharacterComponents( list )}
     </div>
   }

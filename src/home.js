@@ -41,8 +41,8 @@ class MainPage extends React.Component {
     return (<div>
       <h1> Hello {this.props.name}</h1>
       <div className="flex-row">
-        <CharacterList characters={this.state.characters}/>
-        <CharacterList characters={this.state.monsters}/>
+        <CharacterList title="Characters" characters={this.state.characters}/>
+        <CharacterList title="Monsters" characters={this.state.monsters}/>
       </div>
     </div>)
   }

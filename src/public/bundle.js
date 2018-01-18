@@ -1068,8 +1068,8 @@ var MainPage = function (_React$Component) {
         _react2.default.createElement(
           "div",
           { className: "flex-row" },
-          _react2.default.createElement(_CharacterList2.default, { characters: this.state.characters }),
-          _react2.default.createElement(_CharacterList2.default, { characters: this.state.monsters })
+          _react2.default.createElement(_CharacterList2.default, { title: "Characters", characters: this.state.characters }),
+          _react2.default.createElement(_CharacterList2.default, { title: "Monsters", characters: this.state.monsters })
         )
       );
     }
@@ -18402,9 +18402,11 @@ var CharacterList = function (_React$Component) {
         "div",
         { className: "character-list" },
         _react2.default.createElement(
-          "p",
+          "h3",
           null,
-          " Here is a list "
+          " ",
+          this.props.title,
+          " "
         ),
         this.buildCharacterComponents(list)
       );
@@ -18455,12 +18457,41 @@ var Character = function (_React$Component) {
   _createClass(Character, [{
     key: "render",
     value: function render() {
+      var stats = this.props.stats;
+
       return _react2.default.createElement(
-        "p",
-        null,
-        " Hello, my name is: ",
-        this.props.stats.name,
-        " "
+        "div",
+        { className: "character" },
+        "Name: ",
+        stats.name,
+        ".  ",
+        stats.type,
+        _react2.default.createElement(
+          "div",
+          null,
+          "AC: ",
+          stats.ac,
+          ", Attack: ",
+          stats.attackBonus,
+          ", Save DC: ",
+          stats.savedc
+        ),
+        _react2.default.createElement(
+          "div",
+          null,
+          "STR: ",
+          stats.str,
+          ", DEX: ",
+          stats.dex,
+          ", CON: ",
+          stats.con,
+          ", INT: ",
+          stats.int,
+          ", WIS: ",
+          stats.wis,
+          ", CHA: ",
+          stats.cha
+        )
       );
     }
   }]);

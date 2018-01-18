@@ -7,7 +7,17 @@ class Character extends React.Component {
   }
 
   render() {
-    return <p> Hello, my name is: {this.props.stats.name} </p>
+    const stats = this.props.stats
+
+    return <div className="character">
+      Name: {stats.name}.  {stats.type}
+      <div>
+        AC: {stats.ac}, Attack: {stats.attackBonus}, Save DC: {stats.savedc}
+      </div>
+      <div>
+        STR: {stats.str}, DEX: {stats.dex}, CON: {stats.con}, INT: {stats.int}, WIS: {stats.wis}, CHA: {stats.cha}
+      </div>
+    </div>
   }
 }
 
