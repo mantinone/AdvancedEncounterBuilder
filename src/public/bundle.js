@@ -1068,8 +1068,8 @@ var MainPage = function (_React$Component) {
         _react2.default.createElement(
           "div",
           { className: "flex-row" },
-          _react2.default.createElement(_CharacterList2.default, { characters: this.state.characters }),
-          _react2.default.createElement(_CharacterList2.default, { characters: this.state.monsters })
+          _react2.default.createElement(_CharacterList2.default, { title: "Characters", characters: this.state.characters }),
+          _react2.default.createElement(_CharacterList2.default, { title: "Monsters", characters: this.state.monsters })
         )
       );
     }
@@ -18402,9 +18402,11 @@ var CharacterList = function (_React$Component) {
         "div",
         { className: "character-list" },
         _react2.default.createElement(
-          "p",
+          "h3",
           null,
-          " Here is a list "
+          " ",
+          this.props.title,
+          " "
         ),
         this.buildCharacterComponents(list)
       );
@@ -18435,6 +18437,10 @@ var _reactDom = __webpack_require__(7);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _roll = __webpack_require__(29);
+
+var _roll2 = _interopRequireDefault(_roll);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -18455,12 +18461,48 @@ var Character = function (_React$Component) {
   _createClass(Character, [{
     key: "render",
     value: function render() {
+      var stats = this.props.stats;
+      var rollChances = _roll2.default.rollProbability(stats.ac, 7, true);
+
       return _react2.default.createElement(
-        "p",
-        null,
-        " Hello, my name is: ",
-        this.props.stats.name,
-        " "
+        "div",
+        { className: "character" },
+        "Name: ",
+        stats.name,
+        ".  ",
+        stats.type,
+        _react2.default.createElement(
+          "div",
+          null,
+          "AC: ",
+          stats.ac,
+          ", Attack: ",
+          stats.attackBonus,
+          ", Save DC: ",
+          stats.savedc
+        ),
+        _react2.default.createElement(
+          "div",
+          null,
+          "STR: ",
+          stats.str,
+          ", DEX: ",
+          stats.dex,
+          ", CON: ",
+          stats.con,
+          ", INT: ",
+          stats.int,
+          ", WIS: ",
+          stats.wis,
+          ", CHA: ",
+          stats.cha
+        ),
+        _react2.default.createElement(
+          "div",
+          null,
+          "Chances of getting hit by Alice = ",
+          rollChances
+        )
       );
     }
   }]);
@@ -18470,17 +18512,31 @@ var Character = function (_React$Component) {
 
 module.exports = Character;
 
-// A basic character has six stat values and a proficiency bonus,
-// then records what saves get proficiency.  There's two phys attack
-// types and, typically, one of three magic attack types and save DC (though
-// potentially two or three in special cases).  There's also an AC that is
-// half based on a stat and half based on equipment.  Also, equipment
-// can modify saves and attack bonuses too!!
-// I can just store the saves and bonuses on their own and not worry
-// about calculating stats...
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
 
-//Are monsters just characters?  Need to check what saves a monster
-// requires...  Characters can do the same, though.
+"use strict";
+
+
+var clampPercent = function clampPercent(value) {
+  var min = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  var max = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 100;
+
+  return Math.max(min, Math.min(value, max));
+};
+
+var rollProbability = function rollProbability(dc, bonus) {
+  var isAttack = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+  var max = isAttack ? 95 : 100;
+  var min = isAttack ? 5 : 0;
+
+  var total = (21 - dc + bonus) * 5;
+  return clampPercent(total, min, max);
+};
+
+module.exports = { rollProbability: rollProbability };
 
 /***/ })
 /******/ ]);
