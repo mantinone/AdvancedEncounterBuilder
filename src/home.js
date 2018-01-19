@@ -30,7 +30,6 @@ class MainPage extends React.Component {
     return fetch( `http://localhost:3000/${route}`)
       .then( data => data.json())
       .then( result => {
-        console.log(result.characterList);
         this.setState({
           [propName]: result.characterList,
         })
