@@ -5,7 +5,6 @@ import Character from "./Character"
 class CharacterList extends React.Component {
   constructor( props ) {
     super(props)
-    console.log(props);
   }
 
   buildCharacterComponents( charactersArray ){
